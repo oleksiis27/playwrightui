@@ -1,0 +1,7 @@
+{
+  "userRegisteredEmail":"ssls.automation+666@gmail.com",
+  "userRegisteredPassword": "123456",
+  "userNotRegisteredEmail":"ssls.automation+667@gmail.com",
+  "userNotRegisteredPassword": "123456",
+  "userNotValidEmail": "test@@test.com"
+}
