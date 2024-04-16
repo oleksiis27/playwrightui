@@ -4,10 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "playwright test --headed",
     "testLogin": "playwright test --grep @login --headed",
-    "testProfile": "playwright test --grep @profile --headed",
-    "check": "playwright test --grep @check --headed"
+    "testProfile": "playwright test --grep @profile --headed"
   },
   "keywords": [],
   "author": "",
