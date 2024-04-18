@@ -1,3 +1,5 @@
+import {expect} from "@playwright/test";
+
 export class ProfilePage {
     constructor(page) {
         this.page = page
@@ -10,8 +12,14 @@ export class ProfilePage {
         this.userAddressInfo = page.locator('//div[contains(@ng-class,\'address\')]//div[@class=\'description\']/span')
         this.userPinInfo = page.locator('//div[contains(@ng-class,\'pin\')]//div[@class=\'description\']/span')
         this.userNewsletterInfoOn = page.locator('//div[contains(@ng-class,\'newsletter\')]//div[@class=\'description\']/button[@class=\'toggle-btn on\']')
-    }
 
+        this.descriptionInfo = page.locator('//div[@class=\'description\']')
+
+        this.changeNameBtn = page.locator('//button[contains(@ng-disabled, \'name\')]')
+        this.nameInputField = page.locator('//input[@name=\'name\']')
+        this.lastNameInputField = page.locator('//input[@name=\'lastName\']')
+        this.submitParamChange = page.locator('//div[@class=\'item edit\']//button[@type=\'submit\']')
+    }
 
     async getProfileInfo() {
         return {
@@ -23,6 +31,21 @@ export class ProfilePage {
             pin: this.userPinInfo.textContent(),
             newsletterInfo: this.userNewsletterInfoOn.isVisible()
         }
+    }
+
+    async changeProfileName(value) {
+
+        await expect(this.changeNameBtn).toBeVisible()
+        await this.changeNameBtn.click()
+        if(value.includes(' ')){
+            let nameAndSurname = value.split(' ')
+            await this.nameInputField.fill(nameAndSurname.at(0).toString())
+            await this.lastNameInputField.fill(nameAndSurname.at(1).toString())
+        }else{
+            await this.nameInputField.fill(value)
+        }
+
+        await this.submitParamChange.click()
     }
 
     async compareProfiles(profile1, profile2) {
@@ -40,10 +63,5 @@ export class ProfilePage {
         }
 
         return true;
-    }
-
-    async isUsernameInputFieldVisible() {
-        const usernameield = this.uesrNameInfo;
-        return await usernameield.isVisible();
     }
 }
